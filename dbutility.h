@@ -8,7 +8,7 @@ class dbUtility
 {
 public:
     dbUtility();
-    int chiudiScontrino();
+    void chiudiScontrino(float);
 
 private:
     QSqlDatabase db = QSqlDatabase::database();
