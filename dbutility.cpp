@@ -4,3 +4,8 @@ dbUtility::dbUtility()
 {
 
 }
+
+void dbUtility::chiudiScontrino(float totale)
+{
+
+}

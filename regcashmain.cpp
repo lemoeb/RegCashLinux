@@ -2,6 +2,7 @@
 #include "ui_regcashmain.h"
 #include <QtSql>
 #include <QMessageBox>
+#include <QDebug>
 
 
 RegCashMain::RegCashMain(QWidget *parent) :
@@ -14,7 +15,9 @@ RegCashMain::RegCashMain(QWidget *parent) :
 
     //Definizione delle connessioni
     connect(ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
-    connect (frmPagamento,SIGNAL(resetTable()),this,SLOT(resetCashTable()));
+    //connect (frmPagamento,SIGNAL(resetTable()),this,SLOT(resetCashTable()));
+    connect (frmPagamento,SIGNAL(chiudiScontrino(float)),this,SLOT(chiudiScontrino(float)));
+
 
 
 }
@@ -137,13 +140,27 @@ void RegCashMain::on_tbCassa_cellClicked(int row, int column)
 
 void RegCashMain::on_btnContanti_clicked()
 {
-
-
     frmPagamento->caricaDati(ui->txtTotale->text().toFloat(),PAGAMENTO_CONTANTI);
     frmPagamento -> exec();
-
 }
 
 void RegCashMain::resetCashTable(){
     ui->tbCassa->setRowCount(0);
+}
+
+
+void RegCashMain::chiudiScontrino(float pagato){
+    QString test = QString::number(pagato);
+    qDebug() << test;
+}
+
+/**
+ * @brief RegCashMain::on_btnAtm_clicked
+ * @author  Leandro Materni
+ * @version 1.0.0
+ */
+void RegCashMain::on_btnAtm_clicked()
+{
+    frmPagamento->caricaDati(ui->txtTotale->text().toFloat(),PAGAMENTO_ATM);
+    frmPagamento -> exec();
 }
