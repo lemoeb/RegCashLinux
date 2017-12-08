@@ -9,7 +9,6 @@ formpagamento::formpagamento(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::CustomizeWindowHint); //Set window with no title bar
     ui->txtEffettivo->setFocus();
-    //connect(ui->txtPagato,SIGNAL(editingFinished()),this,SLOT(visualizzaResto()));
 }
 
 formpagamento::~formpagamento()
@@ -25,12 +24,13 @@ void formpagamento::caricaDati(float prezzo,int Pagamento)
 
 void formpagamento::on_btnConferma_clicked()
 {
+
+    emit(chiudiScontrino(ui->txtEffettivo->text().toDouble()));
     ui->txtEffettivo->setText("");
     ui->txtPagato->setText("");
     ui->txtResto->setText("");
     ui->txtTotale->setText("");
-    emit(resetTable());
-    //RegCashMain
+    this->close();
 }
 
 void formpagamento::on_btnAnnulla_clicked()

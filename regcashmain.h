@@ -50,6 +50,7 @@ private slots:
 
 public slots:
     void resetCashTable();
+    void chiudiScontrino(float);
 
 private:
     Ui::RegCashMain *ui;

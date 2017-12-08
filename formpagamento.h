@@ -31,6 +31,7 @@ private:
 
 signals:
     void resetTable();
+    void chiudiScontrino(float);
 
 };
 
