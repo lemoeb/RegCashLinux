@@ -25,6 +25,10 @@ void formpagamento::caricaDati(float prezzo,int Pagamento)
 
 void formpagamento::on_btnConferma_clicked()
 {
+    ui->txtEffettivo->setText("");
+    ui->txtPagato->setText("");
+    ui->txtResto->setText("");
+    ui->txtTotale->setText("");
     emit(resetTable());
     //RegCashMain
 }
@@ -64,7 +68,5 @@ void formpagamento::on_txtPagato_returnPressed()
     }
     ui->txtResto->setText(QString::number(resto));
     ui->btnConferma->setFocus();
-    //ui->txtResto->setText(QString::number(effettivo-pagato));
 
-    qInfo("Lost Focus");
 }
