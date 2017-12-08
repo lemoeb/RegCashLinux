@@ -189,6 +189,9 @@
      <height>48</height>
     </size>
    </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
   </widget>
   <widget class="QPushButton" name="btnAnnulla">
    <property name="geometry">
@@ -211,6 +214,9 @@
      <width>48</width>
      <height>48</height>
     </size>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

@@ -137,13 +137,21 @@ void RegCashMain::on_tbCassa_cellClicked(int row, int column)
 
 void RegCashMain::on_btnContanti_clicked()
 {
-
-
     frmPagamento->caricaDati(ui->txtTotale->text().toFloat(),PAGAMENTO_CONTANTI);
     frmPagamento -> exec();
-
 }
 
 void RegCashMain::resetCashTable(){
     ui->tbCassa->setRowCount(0);
+}
+
+/**
+ * @brief RegCashMain::on_btnAtm_clicked
+ * @author  Leandro Materni
+ * @version 1.0.0
+ */
+void RegCashMain::on_btnAtm_clicked()
+{
+    frmPagamento->caricaDati(ui->txtTotale->text().toFloat(),PAGAMENTO_ATM);
+    frmPagamento -> exec();
 }

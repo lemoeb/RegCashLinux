@@ -46,6 +46,8 @@ private slots:
 
     void on_btnContanti_clicked();
 
+    void on_btnAtm_clicked();
+
 public slots:
     void resetCashTable();
 
