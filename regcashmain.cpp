@@ -46,7 +46,8 @@ void RegCashMain::on_actionCassa_triggered()
  */
 void RegCashMain::on_actionSconti_triggered()
 {
-
+    sconti = new formsconti;
+    sconti->exec();
 }
 
 /**

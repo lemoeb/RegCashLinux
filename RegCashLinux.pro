@@ -30,7 +30,8 @@ SOURCES += \
     main.cpp \
     formarticoli.cpp \
     formimpostazioni.cpp \
-    dbutility.cpp
+    dbutility.cpp \
+    formsconti.cpp
 
 HEADERS += \
     customtable.h \
@@ -39,13 +40,15 @@ HEADERS += \
     regcashmain.h \
     formimpostazioni.h \
     tipologiepagamento.h \
-    dbutility.h
+    dbutility.h \
+    formsconti.h
 
 FORMS += \
         regcashmain.ui \
     formarticoli.ui \
     formpagamento.ui \
-    formimpostazioni.ui
+    formimpostazioni.ui \
+    formsconti.ui
 
 RESOURCES += \
     regcashresource.qrc

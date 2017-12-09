@@ -6,6 +6,7 @@
 #include "formarticoli.h"
 #include "formimpostazioni.h"
 #include "formpagamento.h"
+#include "formsconti.h"
 #include "tipologiepagamento.h"
 #include "dbutility.h"
 #include "customtable.h"
@@ -59,6 +60,8 @@ private:
     dbUtility db;
     formImpostazioni *frmImpostazioni;
     formpagamento *frmPagamento;
+    formsconti *sconti;
+
 
 
 };
