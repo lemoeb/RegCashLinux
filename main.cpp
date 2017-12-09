@@ -1,39 +1,60 @@
 #include "regcashmain.h"
 #include "formpagamento.h"
+#include "dbutility.h"
 #include <QApplication>
 #include <QtSql/QSqlDatabase>
 #include <QObject>
+#include <QMessageBox>
+#include <QSettings>
+
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    bool dbConnect;
+    dbUtility test;
+    QMessageBox messageBox;
+    int dbType=0;
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("localhost");
-    db.setDatabaseName("dbCassa");
-    db.setPort(3306);
-    db.setUserName("root");
-    db.setPassword("root");
-    if( !db.open() )
-    {
-        //qDebug(db.lastError());
-        qFatal( "Failed to connect." );
+
+    QString m_sSettingsFile = "./config/application.ini";
+    QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+
+    dbType=settings.value("dbType", "").toInt();
+
+    if (dbType==1){
+      QString dbName=settings.value("dbName", "").toString();
+      QString dbAddress=settings.value("dbAddess", "").toString();
+      QString dbUser=settings.value("dbUser", "").toString();
+      QString dbPassword=settings.value("dbPassword", "").toString();
+      dbConnect=test.dbConnectMySql(dbName,dbAddress,dbUser,dbPassword);
     }
-    else{
+    else if (dbType==2){
+       dbConnect=test.dbConnectSqlite();
+    }
+    else
+    {
+        messageBox.setText("File di conigurazione non presente o danneggiato");
+        messageBox.exec();
+        exit(1);
+    }
+
+
+    if (dbConnect==true){
         qInfo("Connessione DB OK");
     }
+    else
+    {
+        messageBox.setText("Impossibile connettersi al DB");
+        messageBox.exec();
+        exit(1);
+    }
 
-    //RegCashMain FormPrincipale;
+
     RegCashMain w;
-    //formpagamento FrmPagamento;
-
-    //QObject::connect (&FrmPagamento,SIGNAL(resetTable()),&w,SLOT(resetCashTable()));
-
 
     w.show();
-
-
 
     return a.exec();
 }
