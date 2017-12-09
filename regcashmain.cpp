@@ -15,7 +15,6 @@ RegCashMain::RegCashMain(QWidget *parent) :
 
     //Definizione delle connessioni
     connect(ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
-    //connect (frmPagamento,SIGNAL(resetTable()),this,SLOT(resetCashTable()));
     connect (frmPagamento,SIGNAL(chiudiScontrino(float)),this,SLOT(chiudiScontrino(float)));
 
 
@@ -90,47 +89,37 @@ void RegCashMain::on_txtArticolo_returnPressed()
     sconto.remove('%');
     ui->txtArticolo->setText("");
     ui->txtDescArt->setText("");
+    QSqlQuery qry;
 
     if (par2Str!=""){
-        QString sqlSelect;
-        sqlSelect="select a.codArticolo,a.descarticolo,a.prezzoArticolo, b.giacenza from tbarticoli a, tbgiacenze b  WHERE a.idArticolo=b.idArticolo  AND a.codarticolo='" + par2Str +"'";
-        //sqlSelect="select * from tbarticoli where codArticolo='" + par2Str +"'";
-        QSqlQuery qry;
+        qry=db.ricercaArticolo(par2Str);
+        if (qry.next()){
+            ui->txtDescArt->setText("");
+            ui->tbCassa->insertRow ( ui->tbCassa->rowCount());
+            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,0,new QTableWidgetItem(qry.value(0).toString()));
+            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,1,new QTableWidgetItem(qry.value(1).toString()));
+            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,2,new QTableWidgetItem(sconto+"%"));
+            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,3,new QTableWidgetItem(qry.value(2).toString()));
 
-         if(qry.exec(sqlSelect)) {
-             qry.next();
-             int a=qry.numRowsAffected();
-             if (a==0){
-                 QMessageBox::critical(this,"Errore","Articolo non trovato",QMessageBox::Ok);
-             }
-             else
-             {
-                 ui->txtDescArt->setText("");
-                 ui->tbCassa->insertRow ( ui->tbCassa->rowCount());
-                 ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,0,new QTableWidgetItem(qry.value(0).toString()));
-                 ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,1,new QTableWidgetItem(qry.value(1).toString()));
-                 ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,2,new QTableWidgetItem(sconto+"%"));
-                 ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,3,new QTableWidgetItem(qry.value(2).toString()));
+            //Calcolo dello valore scontato
+            if (sconto!="0"){
+                float scontoPerc=qry.value(2).toDouble() - (qry.value(2).toDouble() /100)*sconto.toInt();
 
-                 //Calcolo dello valore scontato
-                 if (sconto!="0"){
-                     float scontoPerc=qry.value(2).toDouble() - (qry.value(2).toDouble() /100)*sconto.toInt();
+                ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(QString::number(scontoPerc) ));
+            }
+            else{
+                ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(qry.value(2).toString()));
+            }
 
-                     ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(QString::number(scontoPerc) ));
-                 }
-                 else{
-                     ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(qry.value(2).toString()));
-                 }
+           totale+=ui->tbCassa->item(ui->tbCassa->rowCount()-1,4)->text().toFloat();
+           ui->txtTotale->setText(QString::number(totale));
+        }
+        else{
+             QMessageBox::critical(this,"Errore","Articolo non trovato",QMessageBox::Ok);
+        }
 
-                totale+=ui->tbCassa->item(ui->tbCassa->rowCount()-1,4)->text().toFloat();
-                ui->txtTotale->setText(QString::number(totale));
+      }
 
-                // ui->txtDescArt->setText(qry.value(0).toString());
-             }
-
-
-         }
-    }
 }
 
 void RegCashMain::on_tbCassa_cellClicked(int row, int column)
