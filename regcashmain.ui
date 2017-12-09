@@ -129,12 +129,33 @@
        <height>291</height>
       </rect>
      </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustIgnored</enum>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="columnCount">
       <number>5</number>
      </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>Articolo</string>
@@ -441,7 +462,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="btnSconto1">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -451,10 +472,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sconto 10 %</string>
+      <string>Sconto</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="btnSconto2">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -464,10 +485,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sconto 15 %</string>
+      <string>Sconto</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="btnSconto3">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -477,10 +498,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sconto 20 %</string>
+      <string>Sconto</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_8">
+    <widget class="QPushButton" name="btnSconto4">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -490,10 +511,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sconto 30 %</string>
+      <string>Sconto</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="btnSconto5">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -503,7 +524,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sconto 40 %</string>
+      <string>Sconto</string>
      </property>
     </widget>
    </widget>

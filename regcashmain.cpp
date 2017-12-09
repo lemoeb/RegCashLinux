@@ -12,6 +12,36 @@ RegCashMain::RegCashMain(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowCloseButtonHint); //Set window with no title bar
     frmPagamento= new formpagamento;
+    QSqlQuery qry;
+
+    //Impostazione dei pulsanti sconto
+    qry=db.recuperaSconti();
+    if (qry.next()){
+        ui->btnSconto1->setText(ui->btnSconto1->text() + " " + qry.value(1).toString() + " %");
+
+        while(qry.next()){
+            switch(qry.value(0).toInt()){
+                case 2:
+                    ui->btnSconto2->setText(ui->btnSconto2->text() + " " + qry.value(1).toString() + " %");
+                    break;
+                case 3:
+                    ui->btnSconto3->setText(ui->btnSconto3->text() + " " + qry.value(1).toString() + " %");
+                    break;
+                case 4:
+                    ui->btnSconto4->setText(ui->btnSconto4->text() + " " + qry.value(1).toString() + " %");
+                    break;
+                case 5:
+                    ui->btnSconto5->setText(ui->btnSconto5->text() + " " + qry.value(1).toString() + " %");
+                    break;
+            }
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this,"Errore","Impossibile recuperare gli sconti",QMessageBox::Ok);
+        exit(1);
+
+    }
 
     //Definizione delle connessioni
     connect(ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
