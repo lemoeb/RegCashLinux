@@ -18,6 +18,12 @@ public:
 private slots:
     void on_btnAnnulla_clicked();
 
+    void on_btnConferma_clicked();
+
+    void on_radio_sqlite_clicked();
+
+    void on_radio_mysql_clicked();
+
 private:
     Ui::formImpostazioni *ui;
 };

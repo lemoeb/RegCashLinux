@@ -50,4 +50,6 @@ FORMS += \
 RESOURCES += \
     regcashresource.qrc
 
-DISTFILES +=
+DISTFILES += \
+    config/application.ini \
+    db/regcash.sqlite

@@ -18,3 +18,18 @@ void formImpostazioni::on_btnAnnulla_clicked()
 {
     this->close();
 }
+
+void formImpostazioni::on_btnConferma_clicked()
+{
+
+}
+
+void formImpostazioni::on_radio_sqlite_clicked()
+{
+    ui->grp_dbSetting->setEnabled(false);
+}
+
+void formImpostazioni::on_radio_mysql_clicked()
+{
+    ui->grp_dbSetting->setEnabled(true);
+}

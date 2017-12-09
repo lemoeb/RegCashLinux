@@ -54,8 +54,9 @@ public slots:
 
 private:
     Ui::RegCashMain *ui;
-    QSqlDatabase db = QSqlDatabase::database();
+    //QSqlDatabase db = QSqlDatabase::database();
     formArticoli *pippo;
+    dbUtility db;
     formImpostazioni *frmImpostazioni;
     formpagamento *frmPagamento;
 
