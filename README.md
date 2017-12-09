@@ -6,3 +6,9 @@ Through this software it will be possible to manage the items, calculate the sal
 The software can use a Sqlite database or even an external Mysql database.
 
 It will also be possible to synchronize all data with Prestashop
+
+##ChageLog
+
+
+
+##TODO
