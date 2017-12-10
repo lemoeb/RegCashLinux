@@ -90,6 +90,34 @@ QSqlQuery dbUtility::recuperaSconti(){
 }
 
 /**
+ * @brief dbUtility::recuperaScontoSpecifico
+ * @param idSconto
+ * @return int
+ */
+int dbUtility::recuperaScontoSpecifico(int idSconto){
+
+    QString sqlSelect;
+    QSqlQuery query;
+    sqlSelect="select sconto from tbSconti WHERE idSconto=:idSconto";
+    query.prepare(sqlSelect);
+    query.bindValue(":idSconto", idSconto);
+    query.exec();
+
+    if (query.lastError().isValid()){
+        return -1;
+    }
+
+    if (query.next()){
+        return query.value(0).toInt();
+    }
+    else
+    {
+        return -102;
+    }
+
+}
+
+/**
  * @brief salvaSconti
  * @param sconto1
  * @param sconto2

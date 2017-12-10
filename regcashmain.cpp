@@ -12,6 +12,7 @@ RegCashMain::RegCashMain(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowCloseButtonHint); //Set window with no title bar
     frmPagamento= new formpagamento;
+    scontoFisso = new formscontofisso;
     QSqlQuery qry;
 
     //Impostazione dei pulsanti sconto
@@ -44,9 +45,9 @@ RegCashMain::RegCashMain(QWidget *parent) :
     }
 
     //Definizione delle connessioni
-    connect(ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
+    connect (ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
     connect (frmPagamento,SIGNAL(chiudiScontrino(float)),this,SLOT(chiudiScontrino(float)));
-
+    connect (scontoFisso,SIGNAL(aggiornaScontoFisso(int)),this,SLOT(impostaScontoFisso(int)));
 
 
 }
@@ -129,7 +130,7 @@ void RegCashMain::on_txtArticolo_returnPressed()
             ui->tbCassa->insertRow ( ui->tbCassa->rowCount());
             ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,0,new QTableWidgetItem(qry.value(0).toString()));
             ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,1,new QTableWidgetItem(qry.value(1).toString()));
-            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,2,new QTableWidgetItem(sconto+"%"));
+            ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,2,new QTableWidgetItem(sconto+" %"));
             ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,3,new QTableWidgetItem(qry.value(2).toString()));
 
             //Calcolo dello valore scontato
@@ -140,6 +141,20 @@ void RegCashMain::on_txtArticolo_returnPressed()
             }
             else{
                 ui->tbCassa->setItem   ( ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(qry.value(2).toString()));
+            }
+
+
+            if ((ui->txtSconto->text()!="") && (ui->txtSconto->text().toInt()!=0)){
+                int sconto=ui->txtSconto->text().toInt();
+                float totSconto=0;
+                float prezzoIntero=0;
+                float prezzoScontato=0;
+                prezzoIntero=ui->tbCassa->item(ui->tbCassa->rowCount()-1,3)->text().toFloat();
+                prezzoScontato=prezzoIntero-(prezzoIntero/100) * sconto;
+                ui->tbCassa->setItem(ui->tbCassa->rowCount()-1,4,new QTableWidgetItem(QString::number(prezzoScontato)));
+                ui->tbCassa->setItem(ui->tbCassa->rowCount()-1,2,new QTableWidgetItem(QString::number(sconto) + " %"));
+                ui->tbCassa->item(ui->tbCassa->rowCount()-1,4)->setBackground(Qt::green);
+                ui->tbCassa->item(ui->tbCassa->rowCount()-1,2)->setBackground(Qt::green);
             }
 
            totale+=ui->tbCassa->item(ui->tbCassa->rowCount()-1,4)->text().toFloat();
@@ -183,4 +198,97 @@ void RegCashMain::on_btnAtm_clicked()
 {
     frmPagamento->caricaDati(ui->txtTotale->text().toFloat(),PAGAMENTO_ATM);
     frmPagamento -> exec();
+}
+
+/**
+ * @brief RegCashMain::on_btnSconto1_clicked
+ */
+void RegCashMain::on_btnSconto1_clicked()
+{
+    int sconto=0;
+    sconto=db.recuperaScontoSpecifico(1);
+    applicaSconto(sconto);
+}
+
+/**
+ * @brief RegCashMain::on_btnSconto2_clicked
+ */
+void RegCashMain::on_btnSconto2_clicked()
+{
+    int sconto=0;
+    sconto=db.recuperaScontoSpecifico(2);
+    applicaSconto(sconto);
+}
+
+/**
+ * @brief RegCashMain::on_btnSconto3_clicked
+ */
+void RegCashMain::on_btnSconto3_clicked()
+{
+    int sconto=0;
+    sconto=db.recuperaScontoSpecifico(3);
+    applicaSconto(sconto);
+}
+
+/**
+ * @brief RegCashMain::on_btnSconto4_clicked
+ */
+void RegCashMain::on_btnSconto4_clicked()
+{
+    int sconto=0;
+    sconto=db.recuperaScontoSpecifico(4);
+    applicaSconto(sconto);
+}
+
+/**
+ * @brief RegCashMain::on_btnSconto5_clicked
+ */
+void RegCashMain::on_btnSconto5_clicked()
+{
+    int sconto=0;
+    sconto=db.recuperaScontoSpecifico(5);
+    applicaSconto(sconto);
+}
+
+/**
+ * @brief applicaSconto
+ * @param sconto
+ */
+void RegCashMain::applicaSconto(int sconto){
+   int righeTabella=ui->tbCassa->rowCount();
+   int i=0;
+   float totale=0;
+   for (i=0;i<righeTabella;i++){
+       float totSconto=0;
+       float prezzoIntero=0;
+       float prezzoScontato=0;
+       prezzoIntero=ui->tbCassa->item(i,3)->text().toFloat();
+       prezzoScontato=prezzoIntero-(prezzoIntero/100) * sconto;
+       ui->tbCassa->setItem(i,4,new QTableWidgetItem(QString::number(prezzoScontato)));
+       ui->tbCassa->setItem(i,2,new QTableWidgetItem(QString::number(sconto) + " %"));
+       ui->tbCassa->item(i,4)->setBackground(Qt::green);
+       ui->tbCassa->item(i,2)->setBackground(Qt::green);
+       totale+=prezzoScontato;
+   }
+   ui->txtTotale->setText(QString::number(totale));
+}
+
+void RegCashMain::on_btnScontoFisso_clicked()
+{
+    scontoFisso->exec();
+}
+
+/**
+ * @brief RegCashMain::impostaScontoFisso
+ * @param sconto
+ */
+void RegCashMain::impostaScontoFisso(int sconto){
+    ui->txtSconto->setText(QString::number(sconto));
+    if (sconto!=0){
+        ui->txtSconto->setStyleSheet("QLineEdit { background-color: rgb(255, 139, 139);}");
+    }
+    else
+    {
+      ui->txtSconto->setStyleSheet("QLineEdit { background-color: rgb(255, 255, 255);}");
+    }
 }

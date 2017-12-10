@@ -16,6 +16,7 @@ public:
 
     QSqlQuery ricercaArticolo(QString);
     QSqlQuery recuperaSconti(void);
+    int recuperaScontoSpecifico(int);
     bool salvaSconti(int,int,int,int,int);
 
     void chiudiScontrino(float);
