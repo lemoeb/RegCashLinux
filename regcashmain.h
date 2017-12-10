@@ -6,6 +6,8 @@
 #include "formarticoli.h"
 #include "formimpostazioni.h"
 #include "formpagamento.h"
+#include "formsconti.h"
+#include "formscontofisso.h"
 #include "tipologiepagamento.h"
 #include "dbutility.h"
 #include "customtable.h"
@@ -48,18 +50,33 @@ private slots:
 
     void on_btnAtm_clicked();
 
+    void on_btnSconto1_clicked();
+
+    void on_btnSconto2_clicked();
+
+    void on_btnSconto3_clicked();
+
+    void on_btnSconto4_clicked();
+
+    void on_btnSconto5_clicked();
+
+    void on_btnScontoFisso_clicked();
+
 public slots:
     void resetCashTable();
     void chiudiScontrino(float);
+    void impostaScontoFisso(int);
 
 private:
     Ui::RegCashMain *ui;
-    //QSqlDatabase db = QSqlDatabase::database();
     formArticoli *pippo;
     dbUtility db;
     formImpostazioni *frmImpostazioni;
     formpagamento *frmPagamento;
+    formsconti *sconti;
+    formscontofisso *scontoFisso;
 
+    void applicaSconto(int);
 
 };
 
