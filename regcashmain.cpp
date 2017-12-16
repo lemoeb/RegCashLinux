@@ -181,11 +181,13 @@ void RegCashMain::on_btnContanti_clicked()
 
 void RegCashMain::resetCashTable(){
     ui->tbCassa->setRowCount(0);
+    ui->txtTotale->setText("0");
 }
 
 
 void RegCashMain::chiudiScontrino(float pagato){
     QString test = QString::number(pagato);
+    resetCashTable();
     qDebug() << test;
 }
 
