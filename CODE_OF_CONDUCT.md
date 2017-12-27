@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+# <img src="https://github.com/FIUP/Getting_Started/blob/master/res/img/UK_flag_circle.png" width="48"> Contributor Covenant Code of Conduct
 
 ## Our Pledge
 
