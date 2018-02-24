@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
+    <width>789</width>
     <height>370</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
   <widget class="QPushButton" name="btnConferma">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>450</x>
      <y>300</y>
      <width>161</width>
      <height>61</height>
@@ -46,7 +46,7 @@
   <widget class="QPushButton" name="btnAnnulla">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>620</x>
      <y>300</y>
      <width>161</width>
      <height>61</height>
@@ -214,6 +214,64 @@
       </rect>
      </property>
     </widget>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>0</y>
+     <width>381</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Shop On Line</string>
+   </property>
+   <widget class="QRadioButton" name="radio_sqlite_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>191</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Prestashop</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>250</y>
+      <width>271</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Attiva Sincronizzazione</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_sqlite_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Magento</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
    </widget>
   </widget>
  </widget>

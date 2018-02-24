@@ -13,5 +13,9 @@
         <file>immagini/redArraowDown.png</file>
         <file>immagini/trends.png</file>
         <file>immagini/tools.png</file>
+        <file>immagini/yellow_bullet.png</file>
+        <file>immagini/gray_bullet.png</file>
+        <file>immagini/black_bullet.png</file>
+        <file>immagini/sync.png</file>
     </qresource>
 </RCC>

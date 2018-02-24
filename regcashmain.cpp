@@ -3,7 +3,7 @@
 #include <QtSql>
 #include <QMessageBox>
 #include <QDebug>
-
+#include <QSettings>
 
 RegCashMain::RegCashMain(QWidget *parent) :
     QMainWindow(parent),
@@ -43,6 +43,9 @@ RegCashMain::RegCashMain(QWidget *parent) :
         exit(1);
 
     }
+
+
+
 
     //Definizione delle connessioni
     connect (ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));

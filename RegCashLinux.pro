@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += sql
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -43,7 +44,8 @@ HEADERS += \
     tipologiepagamento.h \
     dbutility.h \
     formsconti.h \
-    formscontofisso.h
+    formscontofisso.h \
+    checkshop.h
 
 FORMS += \
         regcashmain.ui \

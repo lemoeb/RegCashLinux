@@ -7,8 +7,6 @@
 #include <QMessageBox>
 #include <QSettings>
 
-
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -22,6 +20,7 @@ int main(int argc, char *argv[])
     QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
 
     dbType=settings.value("dbType", "").toInt();
+
 
     if (dbType==1){
       QString dbName=settings.value("dbName", "").toString();
