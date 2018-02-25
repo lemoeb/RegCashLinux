@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include <QVector>
 #include "formarticoli.h"
 #include "formimpostazioni.h"
 #include "formpagamento.h"

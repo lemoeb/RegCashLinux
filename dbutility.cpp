@@ -184,7 +184,41 @@ bool dbUtility::salvaSconti(int sconto1,int sconto2,int sconto3,int sconto4,int 
  * @brief dbUtility::chiudiScontrino
  * @param totale
  */
-void dbUtility::chiudiScontrino(float totale)
+void dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTable )
 {
+    QSqlQuery query;
+    QString sqlUpdate;
+    QString sqlSelect;
+    QString esito="";
+    QString codArticolo="";
+    int righeTabella=dbTable->rowCount();
+    int i=0;
+
+    int scontrino=0;
+
+    db.transaction();
+    //Recupero Scontrino
+    sqlSelect = "SELECT seq('scontrino')";
+    query.prepare(sqlSelect);
+    query.exec();
+    query.next();
+
+    if (query.lastError().isValid()){
+        qDebug("Errore durante il recupero dello scontrino");
+    }
+    else{
+        scontrino=query.value(0).toInt();
+
+        for (i=0;i<righeTabella;i++){
+
+            codArticolo=dbTable->item(i,0)->text();
+            sqlSelect="SELECT idArticolo from tbarticoli WHERE codArticolo=:codArticolo";
+            query.prepare(sqlSelect);
+            query.bindValue(":codArticolo", codArticolo);
+
+        }
+        qDebug()<<"Scontrino N. " << QString::number(scontrino);
+
+   }
 
 }

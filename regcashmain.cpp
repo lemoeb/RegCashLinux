@@ -190,6 +190,7 @@ void RegCashMain::resetCashTable(){
 
 void RegCashMain::chiudiScontrino(float pagato,int tipoPagamento){
     QString test = QString::number(pagato);
+    db.chiudiScontrino(pagato,tipoPagamento,ui->tbCassa);
     resetCashTable();
     qDebug() << test;
 }
