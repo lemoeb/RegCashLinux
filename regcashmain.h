@@ -64,7 +64,7 @@ private slots:
 
 public slots:
     void resetCashTable();
-    void chiudiScontrino(float);
+    void chiudiScontrino(float, int tipoPagamento);
     void impostaScontoFisso(int);
 
 private:

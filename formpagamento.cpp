@@ -25,7 +25,7 @@ void formpagamento::caricaDati(float prezzo,int Pagamento)
 void formpagamento::on_btnConferma_clicked()
 {
 
-    emit(chiudiScontrino(ui->txtEffettivo->text().toDouble()));
+    emit(chiudiScontrino(ui->txtEffettivo->text().toDouble(),tipoPagamento));
     ui->txtEffettivo->setText("");
     ui->txtPagato->setText("");
     ui->txtResto->setText("");
