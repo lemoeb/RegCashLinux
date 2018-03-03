@@ -48,7 +48,7 @@ RegCashMain::RegCashMain(QWidget *parent) :
 
 
     //Definizione delle connessioni
-    connect (ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
+    connect (ui->tbCassa,SIGNAL(backSpacePressed()),this,SLOT(aggiornaTotale()));
     connect (frmPagamento,SIGNAL(chiudiScontrino(float,int)),this,SLOT(chiudiScontrino(float,int)));
     connect (scontoFisso,SIGNAL(aggiornaScontoFisso(int)),this,SLOT(impostaScontoFisso(int)));
 
@@ -60,11 +60,22 @@ RegCashMain::~RegCashMain()
     delete ui;
 }
 
-void RegCashMain::test(float qqq){
-    float Totale=ui->txtTotale->text().toFloat();
-    Totale-=qqq;
-    ui->txtTotale->setText((QString::number(Totale)));
-    qInfo("Test signal");
+void RegCashMain::aggiornaTotale(){
+
+    int righeTabella=ui->tbCassa->rowCount();
+    int i=0;
+    float totale=0;
+
+    if (righeTabella==0){
+        ui->txtTotale->setText("0");
+    }else{
+        for (i=0;i<righeTabella;i++){
+            totale+=ui->tbCassa->item(i,4)->text().toFloat();
+        }
+        ui->txtTotale->setText(QString::number(totale));
+    }
+
+
 }
 
 /**
@@ -307,4 +318,33 @@ void RegCashMain::impostaScontoFisso(int sconto){
     {
       ui->txtSconto->setStyleSheet("QLineEdit { background-color: rgb(255, 255, 255);}");
     }
+}
+
+void RegCashMain::on_pushButton_4_clicked()
+{
+    QModelIndexList indexes = ui->tbCassa->selectionModel()->selection().indexes();
+    if (indexes.count()==0){
+       QMessageBox::information(this,"Info","E' necessario selezionare l'articolo da regalare",QMessageBox::Ok);
+    }else{
+        QModelIndex index = indexes.at(0);
+        //float totSconto=100;
+        int sconto=100;
+        float prezzoIntero=0;
+        float prezzoScontato=0;
+        //QModelIndexList selezione=select->selectedRows();
+        //int index = selezione.at(0).;
+        prezzoIntero=ui->tbCassa->item(index.row(),3)->text().toFloat();
+        prezzoScontato=prezzoIntero-(prezzoIntero/100) * 100;
+        ui->tbCassa->setItem(index.row(),4,new QTableWidgetItem(QString::number(prezzoScontato)));
+        ui->tbCassa->setItem(index.row(),2,new QTableWidgetItem(QString::number(sconto) + " %"));
+        ui->tbCassa->item(index.row(),4)->setBackground(Qt::red);
+        ui->tbCassa->item(index.row(),2)->setBackground(Qt::red);
+        ui->tbCassa->clearSelection();
+        aggiornaTotale();
+    }
+
+
+   // ui->tbCassa->SelectionMode()->selection().indexes();
+
+    //QModelIndexList indexes = QTableWidget::selectionModel()->selection().indexes();
 }
