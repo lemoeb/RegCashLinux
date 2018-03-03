@@ -321,7 +321,7 @@
       <string>Scontrini</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_6">
+    <widget class="QLineEdit" name="txtScontrini">
      <property name="geometry">
       <rect>
        <x>150</x>

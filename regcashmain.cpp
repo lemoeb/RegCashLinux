@@ -189,10 +189,20 @@ void RegCashMain::resetCashTable(){
 
 
 void RegCashMain::chiudiScontrino(float pagato,int tipoPagamento){
+    int esitoChiusura=0;
+    QString errore="";
+    QString numScontrino="";
     QString test = QString::number(pagato);
-    db.chiudiScontrino(pagato,tipoPagamento,ui->tbCassa);
-    resetCashTable();
-    qDebug() << test;
+    esitoChiusura=db.chiudiScontrino(pagato,tipoPagamento,ui->tbCassa,&errore, &numScontrino);
+
+    if (esitoChiusura==-1){
+        QMessageBox::critical(this,"Errore durante la chiusura dello scontrino",errore,QMessageBox::Ok);
+    }
+    else{
+       ui->txtScontrini->setText(numScontrino.rightJustified(5,0));
+       resetCashTable();
+
+    }
 }
 
 /**

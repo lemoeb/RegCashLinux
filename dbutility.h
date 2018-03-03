@@ -20,7 +20,7 @@ public:
     int recuperaScontoSpecifico(int);
     bool salvaSconti(int,int,int,int,int);
 
-    void chiudiScontrino(float,int,customTable *);
+    int chiudiScontrino(float,int,customTable *,QString *,QString *);
 
 private:
     QSqlDatabase db;// = QSqlDatabase::database();
