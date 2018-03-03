@@ -41,7 +41,7 @@ private slots:
 
     void on_tbCassa_cellClicked(int row, int column);
 
-    void test(float qqq);
+    void aggiornaTotale();
 
     //void pagamento (float totale,int tipoPagamento);
 
@@ -62,6 +62,8 @@ private slots:
     void on_btnSconto5_clicked();
 
     void on_btnScontoFisso_clicked();
+
+    void on_pushButton_4_clicked();
 
 public slots:
     void resetCashTable();
