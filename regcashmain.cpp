@@ -3,7 +3,7 @@
 #include <QtSql>
 #include <QMessageBox>
 #include <QDebug>
-
+#include <QSettings>
 
 RegCashMain::RegCashMain(QWidget *parent) :
     QMainWindow(parent),
@@ -44,9 +44,12 @@ RegCashMain::RegCashMain(QWidget *parent) :
 
     }
 
+
+
+
     //Definizione delle connessioni
     connect (ui->tbCassa,SIGNAL(backSpacePressed(float)),this,SLOT(test(float)));
-    connect (frmPagamento,SIGNAL(chiudiScontrino(float)),this,SLOT(chiudiScontrino(float)));
+    connect (frmPagamento,SIGNAL(chiudiScontrino(float,int)),this,SLOT(chiudiScontrino(float,int)));
     connect (scontoFisso,SIGNAL(aggiornaScontoFisso(int)),this,SLOT(impostaScontoFisso(int)));
 
 
@@ -185,10 +188,21 @@ void RegCashMain::resetCashTable(){
 }
 
 
-void RegCashMain::chiudiScontrino(float pagato){
+void RegCashMain::chiudiScontrino(float pagato,int tipoPagamento){
+    int esitoChiusura=0;
+    QString errore="";
+    QString numScontrino="";
     QString test = QString::number(pagato);
-    resetCashTable();
-    qDebug() << test;
+    esitoChiusura=db.chiudiScontrino(pagato,tipoPagamento,ui->tbCassa,&errore, &numScontrino);
+
+    if (esitoChiusura==-1){
+        QMessageBox::critical(this,"Errore durante la chiusura dello scontrino",errore,QMessageBox::Ok);
+    }
+    else{
+       ui->txtScontrini->setText(numScontrino.rightJustified(5,0));
+       resetCashTable();
+
+    }
 }
 
 /**

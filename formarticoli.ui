@@ -88,6 +88,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="btnModifica">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -123,6 +126,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="btnSalva">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -168,7 +174,10 @@
     </size>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="txtPrezzo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -178,16 +187,19 @@
     </rect>
    </property>
    <property name="inputMask">
-    <string>000.00</string>
+    <string/>
    </property>
    <property name="text">
-    <string>.</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="txtGiacenza">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>500</x>
@@ -198,6 +210,9 @@
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="txtDescrizione">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>20</x>

@@ -4,7 +4,8 @@
 #include <QtSql>
 #include <QFileInfo>
 #include <QSqlError>
-
+#include <QDebug>
+#include "customtable.h"
 
 class dbUtility
 {
@@ -19,7 +20,7 @@ public:
     int recuperaScontoSpecifico(int);
     bool salvaSconti(int,int,int,int,int);
 
-    void chiudiScontrino(float);
+    int chiudiScontrino(float,int,customTable *,QString *,QString *);
 
 private:
     QSqlDatabase db;// = QSqlDatabase::database();

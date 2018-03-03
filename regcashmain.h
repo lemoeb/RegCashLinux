@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include <QVector>
 #include "formarticoli.h"
 #include "formimpostazioni.h"
 #include "formpagamento.h"
@@ -64,7 +65,7 @@ private slots:
 
 public slots:
     void resetCashTable();
-    void chiudiScontrino(float);
+    void chiudiScontrino(float, int tipoPagamento);
     void impostaScontoFisso(int);
 
 private:
