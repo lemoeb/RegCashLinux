@@ -31,13 +31,13 @@ class customTable:public QTableWidget
             QTableWidget::removeRow(index.row());
             //connect(QTableWidget,SIGNAL(backSpacePressed(float)),this,SLOT(test()));
 
-            emit backSpacePressed(prezzo);
+            emit backSpacePressed();
 
          }
          else { QTableWidget::keyPressEvent(e); }
       }
    signals:
-       void backSpacePressed(float);
+       void backSpacePressed();
 };
 
 
