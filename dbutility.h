@@ -6,6 +6,8 @@
 #include <QSqlError>
 #include <QDebug>
 #include "customtable.h"
+#include "azioni.h"
+#include "errori.h"
 
 class dbUtility
 {
@@ -21,7 +23,7 @@ public:
     bool salvaSconti(int,int,int,int,int);
 
     int chiudiScontrino(float,int,customTable *,QString *,QString *);
-
+    int salvaArticolo (QString,QString ,float, int,int);
 private:
     QSqlDatabase db;// = QSqlDatabase::database();
     int dbType;

@@ -245,7 +245,7 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
             query.exec();
 
             if (query.lastError().isValid()){
-                *errore=QString::fromStdString(query.lastError().text().toStdString());
+               *errore=QString::fromStdString(query.lastError().text().toStdString());
                return -1;
             }
 
@@ -254,5 +254,43 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
         *numScontrino=QString::number(scontrino);
         return 0;
    }
+}
 
+int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prezzo, int giacenza,int tipoSalvataggio){
+    QString sqlQuery="";
+    QSqlQuery query;
+    int idArticolo=0;
+
+    if (tipoSalvataggio==INSERIMENTO_ARTICOLO){
+        sqlQuery="INSERT INTO tbarticoli (codArticolo,descArticolo,prezzoArticolo) values (:codArticolo,:descArticolo,:prezzoArticolo)";
+        query.prepare(sqlQuery);
+        query.bindValue(":codArticolo",codArticolo);
+        query.bindValue(":descArticolo",descArticolo);
+        query.bindValue(":prezzoArticolo",prezzo);
+        query.exec();
+        if (query.lastError().isValid()){
+           // *errore=QString::fromStdString(query.lastError().text().toStdString());
+           return ERR_INSERIMENTO_ARTICOLO;
+        }
+        else{
+            sqlQuery="SELECT idArticolo from tbarticoli WHERE codArticolo=:codArticolo";
+            query.prepare(sqlQuery);
+            query.bindValue(":codArticolo", codArticolo);
+            query.exec();
+            query.next();
+            idArticolo=query.value(0).toInt();
+
+            if (idArticolo!=0){
+               sqlQuery="INSERT INTO tbgiacenze (idArticolo,giacenza) values (:idArticolo,:giacenza)";
+               query.prepare(sqlQuery);
+               query.bindValue(":idArticolo",idArticolo);
+               query.bindValue(":giacenza",giacenza);
+               query.exec();
+            }
+            else{
+                return ERR_INSERIMENTO_ARTICOLO;
+            }
+        }
+    }
+    return NO_ERROR;
 }

@@ -46,7 +46,9 @@ HEADERS += \
     dbutility.h \
     formsconti.h \
     formscontofisso.h \
-    checkshop.h
+    checkshop.h \
+    azioni.h \
+    errori.h
 
 FORMS += \
         regcashmain.ui \
