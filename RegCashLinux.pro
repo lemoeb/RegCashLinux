@@ -34,7 +34,7 @@ SOURCES += \
     formimpostazioni.cpp \
     dbutility.cpp \
     formsconti.cpp \
-    formscontofisso.cpp
+    formscontofisso.cpp \
 
 HEADERS += \
     customtable.h \
@@ -48,7 +48,7 @@ HEADERS += \
     formscontofisso.h \
     checkshop.h \
     azioni.h \
-    errori.h
+    errori.h \
 
 FORMS += \
         regcashmain.ui \
@@ -63,4 +63,6 @@ RESOURCES += \
 
 DISTFILES += \
     config/application.ini \
-    db/regcash.sqlite
+    db/regcash.sqlite \
+    report/read.me
+

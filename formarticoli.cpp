@@ -31,6 +31,7 @@ void formArticoli::resetForm(){
     this->ui->txtDescrizione->clear();
     this->ui->txtPrezzo->clear();
     this->ui->txtGiacenza->clear();
+    disabilitaInsMod();
     tipoSalvataggio=NO_ACTION;
 }
 
@@ -121,5 +122,27 @@ void formArticoli::on_btnSalva_clicked()
     double prezzo=this->ui->txtPrezzo->text().toFloat();
     int giacenza=this->ui->txtGiacenza->text().toInt();
     result=db2.salvaArticolo(idArticolo,descArticolo,prezzo,giacenza,tipoSalvataggio);
+
+    if (result==NO_ERROR){
+        switch(tipoSalvataggio){
+            case INSERIMENTO_ARTICOLO:
+                QMessageBox::information(this,"Info","Nuovo articolo inserito",QMessageBox::Ok);
+            break;
+            case MODIFICA_ARTICOLO:
+                QMessageBox::information(this,"Info","Articolo Modificato",QMessageBox::Ok);
+            break;
+        }
+        resetForm();
+    }else{
+        switch(tipoSalvataggio){
+            case INSERIMENTO_ARTICOLO:
+                QMessageBox::critical(this,"Errore","Errore durante l'inserimento dell'articolo",QMessageBox::Ok);
+            break;
+            case MODIFICA_ARTICOLO:
+                QMessageBox::critical(this,"Errore","Errore durante la modifica dell'articolo",QMessageBox::Ok);
+            break;
+        }
+
+    }
 
 }
