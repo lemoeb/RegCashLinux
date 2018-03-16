@@ -245,7 +245,7 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
             query.exec();
 
             if (query.lastError().isValid()){
-                *errore=QString::fromStdString(query.lastError().text().toStdString());
+               *errore=QString::fromStdString(query.lastError().text().toStdString());
                return -1;
             }
 
@@ -254,5 +254,85 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
         *numScontrino=QString::number(scontrino);
         return 0;
    }
+}
 
+int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prezzo, int giacenza,int tipoSalvataggio){
+    QString sqlQuery="";
+    QSqlQuery query;
+    int idArticolo=0;
+
+    sqlQuery="SET autocommit = 0";
+    query.prepare(sqlQuery);
+    query.exec();
+
+    switch(tipoSalvataggio){
+        case INSERIMENTO_ARTICOLO:
+            qDebug() << "Inserimento Articolo";
+            sqlQuery="INSERT INTO tbarticoli (codArticolo,descArticolo,prezzoArticolo) values (:codArticolo,:descArticolo,:prezzoArticolo)";
+            query.prepare(sqlQuery);
+            query.bindValue(":codArticolo",codArticolo);
+            query.bindValue(":descArticolo",descArticolo);
+            query.bindValue(":prezzoArticolo",prezzo);
+            query.exec();
+
+
+            if (query.lastError().isValid()){
+               // *errore=QString::fromStdString(query.lastError().text().toStdString());
+               return ERR_INSERIMENTO_ARTICOLO;
+            }
+            else{
+                    idArticolo=query.lastInsertId().toInt();
+                    sqlQuery="INSERT INTO tbgiacenze (idArticolo,giacenza) values (:idArticolo,:giacenza)";
+                    query.prepare(sqlQuery);
+                    query.bindValue(":idArticolo",idArticolo);
+                    query.bindValue(":giacenza",giacenza);
+                    query.exec();
+                    if (query.lastError().isValid()){
+                      return ERR_INSERIMENTO_ARTICOLO;
+                    }
+            }
+        break;
+        case MODIFICA_ARTICOLO:
+
+            //recupero idArticolo
+            //-------------------
+            sqlQuery="SELECT idArticolo FROM tbarticoli WHERE codArticolo=:codArticolo ";
+            query.prepare(sqlQuery);
+            query.bindValue(":codArticolo", codArticolo);
+            query.exec();
+            query.next();
+            idArticolo=query.value(0).toInt();
+
+            if (idArticolo!=0){
+                sqlQuery="UPDATE tbarticoli set descArticolo=:descArticolo,prezzoArticolo=:prezzo WHERE idArticolo=:idArticolo";
+                query.prepare(sqlQuery);
+                query.bindValue(":idArticolo", idArticolo);
+                query.bindValue(":descArticolo", descArticolo);
+                query.bindValue(":prezzo", prezzo);
+                query.exec();
+                if (query.lastError().isValid()){
+                    return ERR_MODIFICA_ARTICOLO;
+                }
+                else{
+                    sqlQuery="UPDATE tbgiacenze set giacenza=:giacenza WHERE idArticolo=:idArticolo";
+                    query.prepare(sqlQuery);
+                    query.bindValue(":idArticolo", idArticolo);
+                    query.bindValue(":giacenza", giacenza);
+                    query.exec();
+                    if (query.lastError().isValid()){
+                        return ERR_MODIFICA_ARTICOLO;
+                    }
+
+                }
+
+            }
+            else{
+                return ERR_MODIFICA_ARTICOLO;
+            }
+        break;
+    }
+    sqlQuery="commit";
+    query.prepare(sqlQuery);
+    query.exec();
+    return NO_ERROR;
 }
