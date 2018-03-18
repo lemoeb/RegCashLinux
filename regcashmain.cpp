@@ -109,7 +109,8 @@ void RegCashMain::on_actionArticoli_triggered()
  */
 void RegCashMain::on_actionExportData_triggered()
 {
-
+    formReport=new formreport;
+    formReport->exec();
 }
 
 /**
