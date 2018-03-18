@@ -24,6 +24,8 @@ public:
 
     int chiudiScontrino(float,int,customTable *,QString *,QString *);
     int salvaArticolo (QString,QString ,float, int,int);
+    QSqlQuery report(int,QString,QString,int,QString);
+
 private:
     QSqlDatabase db;// = QSqlDatabase::database();
     int dbType;

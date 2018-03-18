@@ -20,10 +20,15 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
 
 
+    void on_btnAnnulla_clicked();
+
+    void on_btnConferma_clicked();
+
 private:
     Ui::formreport *ui;
     void disabilitaCampiData(void);
     void abilitaCampiData(void);
+    void generaReport(void);
 
 };
 
