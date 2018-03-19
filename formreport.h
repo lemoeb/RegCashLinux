@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QDebug>
+#include "azioni.h"
+#include "dbutility.h"
 
 namespace Ui {
 class formreport;
@@ -26,6 +28,7 @@ private slots:
 
 private:
     Ui::formreport *ui;
+    dbUtility db;
     void disabilitaCampiData(void);
     void abilitaCampiData(void);
     void generaReport(void);

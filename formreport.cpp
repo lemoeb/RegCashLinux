@@ -48,11 +48,35 @@ void formreport::abilitaCampiData(){
  * @brief formreport::generaReport
  */
 void formreport::generaReport(){
+
+    QSqlQuery qry;
+    QString descErrore="";
+    QString dataDa="";
+    QString dataA="";
+    int limiteRighe=0;
+    QString limiteArticolo="";
+    int numErrore=NO_ERROR;
+
+    int tipoReport=ui->cmbReport->currentIndex();
     disabilitaCampiData();
     ui->cmbReport->setEnabled(false);
     ui->btnConferma->setEnabled(false);
     ui->btnAnnulla->setEnabled(false);
     ui->lbl_wait->setVisible(true);
+    this->update();
+
+    switch(tipoReport){
+        case REPORT_LISTA_ARTICOLI:
+            qry=db.report(&descErrore,&numErrore,REPORT_LISTA_ARTICOLI,dataDa,dataA,limiteRighe,limiteArticolo);
+            while(qry.next()){
+                qDebug() << qry.value(0).toString();
+            }
+            ui->lbl_wait->setVisible(false);
+            this->update();
+        break;
+    }
+
+
 }
 
 /**
@@ -62,7 +86,7 @@ void formreport::generaReport(){
 void formreport::on_comboBox_currentIndexChanged(int index)
 {
     switch(index){
-        case 0: //Lista Articoli
+        case REPORT_LISTA_ARTICOLI: //Lista Articoli
             disabilitaCampiData();
             break;
         case 1: //Articoli senza Giacenza

@@ -183,6 +183,11 @@ bool dbUtility::salvaSconti(int sconto1,int sconto2,int sconto3,int sconto4,int 
 /**
  * @brief dbUtility::chiudiScontrino
  * @param totale
+ * @param tipoPagamento
+ * @param dbTable
+ * @param errore
+ * @param numScontrino
+ * @return
  */
 int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTable, QString *errore, QString *numScontrino )
 {
@@ -256,6 +261,15 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
    }
 }
 
+/**
+ * @brief dbUtility::salvaArticolo
+ * @param codArticolo
+ * @param descArticolo
+ * @param prezzo
+ * @param giacenza
+ * @param tipoSalvataggio
+ * @return
+ */
 int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prezzo, int giacenza,int tipoSalvataggio){
     QString sqlQuery="";
     QSqlQuery query;
@@ -335,4 +349,44 @@ int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prez
     query.prepare(sqlQuery);
     query.exec();
     return NO_ERROR;
+}
+
+/**
+ * @brief report
+ * @param tipoReport
+ * @param dataDa
+ * @param dataA
+ * @param limiteRighe
+ * @param limiteArticolo
+ * @return
+ */
+QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QString dataDa,QString dataA,int limiteRighe,QString limiteArticolo){
+
+    QString sqlSelect;
+    QSqlQuery query;
+
+    switch(tipoReport){
+        case REPORT_LISTA_ARTICOLI:
+            sqlSelect="SELECT a.codArticolo,a.descArticolo,a.prezzoArticolo,b.giacenza "
+                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo";
+            query.prepare(sqlSelect);
+            query.exec();
+        break;
+
+        case REPORT_ARTICOLI_NO_GIACENZA:
+        break;
+
+        case REPORT_ARTICOLI_VENDUTI:
+        break;
+
+        case REPORT_ARTICOLI_PIU_VENDUTI:
+        break;
+
+        case REPORT_ARTICOLI_PIU_PROFITTO:
+        break;
+    }
+
+
+
+    return query;
 }
