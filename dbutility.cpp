@@ -368,7 +368,8 @@ QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QS
     switch(tipoReport){
         case REPORT_LISTA_ARTICOLI:
             sqlSelect="SELECT a.codArticolo,a.descArticolo,a.prezzoArticolo,b.giacenza "
-                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo";
+                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo "
+                    "order by a.codArticolo";
             query.prepare(sqlSelect);
             query.exec();
         break;

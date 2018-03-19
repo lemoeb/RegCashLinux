@@ -3,8 +3,11 @@
 
 #include <QDialog>
 #include <QDebug>
+#include <QMessageBox>
 #include "azioni.h"
 #include "dbutility.h"
+#include "messaggi.h"
+
 
 namespace Ui {
 class formreport;
@@ -29,9 +32,11 @@ private slots:
 private:
     Ui::formreport *ui;
     dbUtility db;
+    QMessageBox messageBox;
     void disabilitaCampiData(void);
     void abilitaCampiData(void);
     void generaReport(void);
+    void resetForm(void);
 
 };
 

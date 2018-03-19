@@ -51,7 +51,8 @@ HEADERS += \
     azioni.h \
     errori.h \
     formreport.h \
-    version.h
+    version.h \
+    messaggi.h
 
 FORMS += \
         regcashmain.ui \

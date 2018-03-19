@@ -22,6 +22,13 @@ formreport::~formreport()
     delete ui;
 }
 
+void formreport::resetForm(){
+    ui->cmbReport->setEnabled(true);
+    ui->btnConferma->setEnabled(true);
+    ui->btnAnnulla->setEnabled(true);
+}
+
+
 /**
  * @brief formreport::disabilitaCampiData
  */
@@ -67,11 +74,33 @@ void formreport::generaReport(){
 
     switch(tipoReport){
         case REPORT_LISTA_ARTICOLI:
-            qry=db.report(&descErrore,&numErrore,REPORT_LISTA_ARTICOLI,dataDa,dataA,limiteRighe,limiteArticolo);
-            while(qry.next()){
-                qDebug() << qry.value(0).toString();
+            QString tdateTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+            QString outputFilename = "./report/listaArticoli_" + tdateTime + ".csv";
+            QFile outputFile(outputFilename);
+            outputFile.open(QIODevice::WriteOnly);
+            if(!outputFile.isOpen()){
+                messageBox.critical(this,ERROR_TITLE,REPORT_GENERATE_ERROR,messageBox.Ok);
             }
-            ui->lbl_wait->setVisible(false);
+            else{
+
+                qry=db.report(&descErrore,&numErrore,REPORT_LISTA_ARTICOLI,dataDa,dataA,limiteRighe,limiteArticolo);
+                QTextStream outStream(&outputFile);
+                QString riga ="";
+                outStream << "Report;Lista Articoli" << endl << endl;
+                riga="ARTICOLO;DESCRIZIONE;PREZZO;GIACENZA";
+                outStream << riga << endl;
+
+                while(qry.next()){
+                    riga="";
+                    riga += qry.value(0).toString() + ";" + qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(3).toString() + ";";
+                    outStream << riga << endl;
+                }
+                outputFile.close();
+                ui->lbl_wait->setVisible(false);
+                messageBox.information(this,INFO_TITLE,REPORT_GENERATED,QMessageBox::Ok);
+                resetForm();
+            }
+
             this->update();
         break;
     }
