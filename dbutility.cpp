@@ -383,22 +383,100 @@ QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QS
         break;
 
         case REPORT_ARTICOLI_VENDUTI:
-            /*sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
-                   "FROM tbarticoli a, tbuscite b
+            sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
                    "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by a.codArticolo ";
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
 
-                    and b.dataUscita >= '2018-03-04 00:00:00'
-                    and b.dataUscita <= '2018-03-04 00:00:00'
-                    group by a.codArticolo,a.descArticolo
-                    order by a.codArticolo";
             query.prepare(sqlSelect);
-            query.exec();*/
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+
         break;
 
         case REPORT_ARTICOLI_PIU_VENDUTI:
+            sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
+                   "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by totale desc ";
+
+
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
+            else{
+                sqlSelect += "limit 0,10";
+            }
+
+            query.prepare(sqlSelect);
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+
         break;
 
-        case REPORT_ARTICOLI_PIU_PROFITTO:
+        case REPORT_ARTICOLI_PIU_PROFITTO:{
+            sqlSelect="SELECT sum(b.prezzoScontato) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
+                   "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by totale desc ";
+
+
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
+            else{
+                sqlSelect += "limit 0,10";
+            }
+            qDebug() << sqlSelect;
+            query.prepare(sqlSelect);
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+        }
         break;
     }
 

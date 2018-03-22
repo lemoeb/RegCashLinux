@@ -118,29 +118,32 @@ void formreport::generaReport(){
 
             this->update();
         }
-        case REPORT_ARTICOLI_NO_GIACENZA:{
+        break;
+        case REPORT_ARTICOLI_VENDUTI:{
 
-            outputFilename = "./report/listaArticoliNoGiacenza_" + tdateTime + ".csv";
-            QFile outputFileNoGiacenza(outputFilename);
-             outputFileNoGiacenza.open(QIODevice::WriteOnly);
-            if(! outputFileNoGiacenza.isOpen()){
+            dataDa=ui->dateEditDa->date().toString("yyyy-mm-dd 00:00:00");
+            dataA=ui->dateEditA->date().toString("yyyy-mm-dd 00:00:00");
+            outputFilename = "./report/listaArticoliVenduti_" + tdateTime + ".csv";
+            QFile outputFileArticoliVenduti(outputFilename);
+            outputFileArticoliVenduti.open(QIODevice::WriteOnly);
+            if(! outputFileArticoliVenduti.isOpen()){
                 messageBox.critical(this,ERROR_TITLE,REPORT_GENERATE_ERROR,messageBox.Ok);
             }
             else{
 
-                qry=db.report(&descErrore,&numErrore,REPORT_ARTICOLI_NO_GIACENZA,dataDa,dataA,limiteRighe,limiteArticolo,filtraData,filtraRighe,filtraArticolo);
-                QTextStream outStream(& outputFileNoGiacenza);
+                qry=db.report(&descErrore,&numErrore,REPORT_ARTICOLI_VENDUTI,dataDa,dataA,limiteRighe,limiteArticolo,filtraData,filtraRighe,filtraArticolo);
+                QTextStream outStream(& outputFileArticoliVenduti);
                 QString riga ="";
                 outStream << "Report;Lista Articoli" << endl << endl;
-                riga="ARTICOLO;DESCRIZIONE;PREZZO;GIACENZA";
+                riga="ARTICOLO;DESCRIZIONE;TOTALE";
                 outStream << riga << endl;
 
                 while(qry.next()){
                     riga="";
-                    riga += qry.value(0).toString() + ";" + qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(3).toString() + ";";
+                    riga += qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(0).toString();
                     outStream << riga << endl;
                 }
-                 outputFileNoGiacenza.close();
+                 outputFileArticoliVenduti.close();
                 ui->lbl_wait->setVisible(false);
                 messageBox.information(this,INFO_TITLE,REPORT_GENERATED,QMessageBox::Ok);
                 resetForm();
@@ -148,6 +151,104 @@ void formreport::generaReport(){
 
             this->update();
         }
+        break;
+        case REPORT_ARTICOLI_NO_GIACENZA:{
+
+        outputFilename = "./report/listaArticoliNoGiacenza_" + tdateTime + ".csv";
+        QFile outputFileNoGiacenza(outputFilename);
+         outputFileNoGiacenza.open(QIODevice::WriteOnly);
+        if(! outputFileNoGiacenza.isOpen()){
+            messageBox.critical(this,ERROR_TITLE,REPORT_GENERATE_ERROR,messageBox.Ok);
+        }
+        else{
+
+            qry=db.report(&descErrore,&numErrore,REPORT_ARTICOLI_NO_GIACENZA,dataDa,dataA,limiteRighe,limiteArticolo,filtraData,filtraRighe,filtraArticolo);
+            QTextStream outStream(& outputFileNoGiacenza);
+            QString riga ="";
+            outStream << "Report;Lista Articoli" << endl << endl;
+            riga="ARTICOLO;DESCRIZIONE;PREZZO;GIACENZA";
+
+            outStream << riga << endl;
+
+            while(qry.next()){
+                riga="";
+                riga += qry.value(0).toString() + ";" + qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(3).toString() + ";";
+                outStream << riga << endl;
+            }
+
+            outputFileNoGiacenza.close();
+            ui->lbl_wait->setVisible(false);
+            messageBox.information(this,INFO_TITLE,REPORT_GENERATED,QMessageBox::Ok);
+            resetForm();
+        }
+
+        this->update();
+        }
+        break;
+        case REPORT_ARTICOLI_PIU_VENDUTI:{
+            dataDa=ui->dateEditDa->date().toString("yyyy-mm-dd 00:00:00");
+            dataA=ui->dateEditA->date().toString("yyyy-mm-dd 00:00:00");
+            outputFilename = "./report/listaArticoliPiuVenduti_" + tdateTime + ".csv";
+            QFile outputFileArticoliPiuVenduti(outputFilename);
+            outputFileArticoliPiuVenduti.open(QIODevice::WriteOnly);
+            if(! outputFileArticoliPiuVenduti.isOpen()){
+                messageBox.critical(this,ERROR_TITLE,REPORT_GENERATE_ERROR,messageBox.Ok);
+            }
+            else{
+
+                qry=db.report(&descErrore,&numErrore,REPORT_ARTICOLI_PIU_VENDUTI,dataDa,dataA,limiteRighe,limiteArticolo,filtraData,filtraRighe,filtraArticolo);
+                QTextStream outStream(& outputFileArticoliPiuVenduti);
+                QString riga ="";
+                outStream << "Report;Lista Articoli" << endl << endl;
+                riga="ARTICOLO;DESCRIZIONE;TOTALE";
+                outStream << riga << endl;
+
+                while(qry.next()){
+                    riga="";
+                    riga += qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(0).toString();
+                    outStream << riga << endl;
+                }
+                 outputFileArticoliPiuVenduti.close();
+                ui->lbl_wait->setVisible(false);
+                messageBox.information(this,INFO_TITLE,REPORT_GENERATED,QMessageBox::Ok);
+                resetForm();
+            }
+
+            this->update();
+        }
+        break;
+        case REPORT_ARTICOLI_PIU_PROFITTO:{
+            dataDa=ui->dateEditDa->date().toString("yyyy-mm-dd 00:00:00");
+            dataA=ui->dateEditA->date().toString("yyyy-mm-dd 00:00:00");
+            outputFilename = "./report/listaArticoliPiuProfitto_" + tdateTime + ".csv";
+            QFile outputFileArticoliPiuProfitto(outputFilename);
+            outputFileArticoliPiuProfitto.open(QIODevice::WriteOnly);
+            if(! outputFileArticoliPiuProfitto.isOpen()){
+                messageBox.critical(this,ERROR_TITLE,REPORT_GENERATE_ERROR,messageBox.Ok);
+            }
+            else{
+
+                qry=db.report(&descErrore,&numErrore,REPORT_ARTICOLI_PIU_PROFITTO,dataDa,dataA,limiteRighe,limiteArticolo,filtraData,filtraRighe,filtraArticolo);
+                QTextStream outStream(& outputFileArticoliPiuProfitto);
+                QString riga ="";
+                outStream << "Report;Lista Articoli" << endl << endl;
+                riga="ARTICOLO;DESCRIZIONE;TOTALE €";
+                outStream << riga << endl;
+
+                while(qry.next()){
+                    riga="";
+                    riga += qry.value(1).toString() + ";" + qry.value(2).toString() + ";" + qry.value(0).toString();
+                    outStream << riga << endl;
+                }
+                 outputFileArticoliPiuProfitto.close();
+                ui->lbl_wait->setVisible(false);
+                messageBox.information(this,INFO_TITLE,REPORT_GENERATED,QMessageBox::Ok);
+                resetForm();
+            }
+
+            this->update();
+        }
+        break;
 
     }
 
@@ -177,16 +278,16 @@ void formreport::on_cmbReport_currentIndexChanged(int index)
         case REPORT_LISTA_ARTICOLI: //Lista Articoli
             disabilitaCampiData();
             break;
-        case 1: //Articoli senza Giacenza
+        case REPORT_ARTICOLI_NO_GIACENZA: //Articoli senza Giacenza
             disabilitaCampiData();
             break;
-        case 2: //Articoli Venduti
+        case REPORT_ARTICOLI_VENDUTI: //Articoli Venduti
             abilitaCampiData();
             break;
-        case 3: //Articoli più venduti
+        case REPORT_ARTICOLI_PIU_VENDUTI: //Articoli più venduti
              abilitaCampiData();
             break;
-        case 4: //Articoli che hanno generato più profitto
+        case REPORT_ARTICOLI_PIU_PROFITTO: //Articoli che hanno generato più profitto
              abilitaCampiData();
             break;
     }
