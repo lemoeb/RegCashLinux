@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>formImpostazioni</class>
+ <widget class="QDialog" name="formImpostazioni">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>789</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>16</pointsize>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="btnConferma">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>300</y>
+     <width>161</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Conferma</string>
+   </property>
+   <property name="icon">
+    <iconset resource="regcashresource.qrc">
+     <normaloff>:/immagini/check.png</normaloff>:/immagini/check.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAnnulla">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>300</y>
+     <width>161</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Annulla</string>
+   </property>
+   <property name="icon">
+    <iconset resource="regcashresource.qrc">
+     <normaloff>:/immagini/close.png</normaloff>:/immagini/close.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>381</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>DataBase</string>
+   </property>
+   <widget class="QRadioButton" name="radio_sqlite">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>191</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Interno (SqlLite)</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_mysql">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>261</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MySql</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="grp_dbSetting">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>361</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLineEdit" name="dbPassword">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>140</y>
+       <width>211</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>54</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Host</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dbuser">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>110</y>
+       <width>211</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Nome Db</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dbName">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>80</y>
+       <width>211</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Utente</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dbHost">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>50</y>
+       <width>211</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>0</y>
+     <width>381</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Shop On Line</string>
+   </property>
+   <widget class="QRadioButton" name="radio_sqlite_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>191</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Prestashop</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>250</y>
+      <width>271</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Attiva Sincronizzazione</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radio_sqlite_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Magento</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="regcashresource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
