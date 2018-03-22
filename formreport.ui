@@ -143,6 +143,12 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="displayFormat">
+     <string>dd/MM/yyyy</string>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="lblDataDa">
     <property name="geometry">
@@ -170,6 +176,12 @@
       <width>110</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="displayFormat">
+     <string>dd/MM/yyyy</string>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lblDataA">
@@ -243,7 +255,7 @@
      </property>
     </item>
    </widget>
-   <widget class="QCheckBox" name="checkBox_2">
+   <widget class="QCheckBox" name="ck_righe">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -274,7 +286,7 @@
      <string>Limitato a righe</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_3">
+   <widget class="QCheckBox" name="ck_articolo">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -319,9 +331,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-10</y>
-      <width>431</width>
-      <height>191</height>
+      <y>80</y>
+      <width>441</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">

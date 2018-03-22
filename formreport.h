@@ -22,12 +22,11 @@ public:
     ~formreport();
 
 private slots:
-    void on_comboBox_currentIndexChanged(int index);
-
 
     void on_btnAnnulla_clicked();
-
     void on_btnConferma_clicked();
+
+    void on_cmbReport_currentIndexChanged(int index);
 
 private:
     Ui::formreport *ui;

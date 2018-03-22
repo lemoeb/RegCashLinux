@@ -360,7 +360,7 @@ int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prez
  * @param limiteArticolo
  * @return
  */
-QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QString dataDa,QString dataA,int limiteRighe,QString limiteArticolo){
+QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QString dataDa,QString dataA,int limiteRighe,QString limiteArticolo, int filtraData,int filtraRighe,int filtraArticolo){
 
     QString sqlSelect;
     QSqlQuery query;
@@ -375,9 +375,24 @@ QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QS
         break;
 
         case REPORT_ARTICOLI_NO_GIACENZA:
+            sqlSelect="SELECT a.codArticolo,a.descArticolo,a.prezzoArticolo,b.giacenza "
+                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo AND b.giacenza<=0 "
+                    "order by a.codArticolo";
+            query.prepare(sqlSelect);
+            query.exec();
         break;
 
         case REPORT_ARTICOLI_VENDUTI:
+            /*sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b
+                   "where a.idArticolo=b.idArticolo ";
+
+                    and b.dataUscita >= '2018-03-04 00:00:00'
+                    and b.dataUscita <= '2018-03-04 00:00:00'
+                    group by a.codArticolo,a.descArticolo
+                    order by a.codArticolo";
+            query.prepare(sqlSelect);
+            query.exec();*/
         break;
 
         case REPORT_ARTICOLI_PIU_VENDUTI:
