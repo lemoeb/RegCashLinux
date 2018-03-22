@@ -183,6 +183,11 @@ bool dbUtility::salvaSconti(int sconto1,int sconto2,int sconto3,int sconto4,int 
 /**
  * @brief dbUtility::chiudiScontrino
  * @param totale
+ * @param tipoPagamento
+ * @param dbTable
+ * @param errore
+ * @param numScontrino
+ * @return
  */
 int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTable, QString *errore, QString *numScontrino )
 {
@@ -256,6 +261,15 @@ int dbUtility::chiudiScontrino(float totale,int tipoPagamento, customTable *dbTa
    }
 }
 
+/**
+ * @brief dbUtility::salvaArticolo
+ * @param codArticolo
+ * @param descArticolo
+ * @param prezzo
+ * @param giacenza
+ * @param tipoSalvataggio
+ * @return
+ */
 int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prezzo, int giacenza,int tipoSalvataggio){
     QString sqlQuery="";
     QSqlQuery query;
@@ -335,4 +349,138 @@ int dbUtility::salvaArticolo(QString codArticolo,QString descArticolo,float prez
     query.prepare(sqlQuery);
     query.exec();
     return NO_ERROR;
+}
+
+/**
+ * @brief report
+ * @param tipoReport
+ * @param dataDa
+ * @param dataA
+ * @param limiteRighe
+ * @param limiteArticolo
+ * @return
+ */
+QSqlQuery dbUtility::report(QString *descErrore,int *numErrore,int tipoReport,QString dataDa,QString dataA,int limiteRighe,QString limiteArticolo, int filtraData,int filtraRighe,int filtraArticolo){
+
+    QString sqlSelect;
+    QSqlQuery query;
+
+    switch(tipoReport){
+        case REPORT_LISTA_ARTICOLI:
+            sqlSelect="SELECT a.codArticolo,a.descArticolo,a.prezzoArticolo,b.giacenza "
+                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo "
+                    "order by a.codArticolo";
+            query.prepare(sqlSelect);
+            query.exec();
+        break;
+
+        case REPORT_ARTICOLI_NO_GIACENZA:
+            sqlSelect="SELECT a.codArticolo,a.descArticolo,a.prezzoArticolo,b.giacenza "
+                    "FROM tbarticoli a, tbgiacenze b where a.idArticolo=b.idArticolo AND b.giacenza<=0 "
+                    "order by a.codArticolo";
+            query.prepare(sqlSelect);
+            query.exec();
+        break;
+
+        case REPORT_ARTICOLI_VENDUTI:
+            sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
+                   "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by a.codArticolo ";
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
+
+            query.prepare(sqlSelect);
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+
+        break;
+
+        case REPORT_ARTICOLI_PIU_VENDUTI:
+            sqlSelect="SELECT count(a.codArticolo) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
+                   "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by totale desc ";
+
+
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
+            else{
+                sqlSelect += "limit 0,10";
+            }
+
+            query.prepare(sqlSelect);
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+
+        break;
+
+        case REPORT_ARTICOLI_PIU_PROFITTO:{
+            sqlSelect="SELECT sum(b.prezzoScontato) as totale,a.codArticolo,a.descArticolo "
+                   "FROM tbarticoli a, tbuscite b "
+                   "where a.idArticolo=b.idArticolo ";
+            if (filtraData==2){
+                sqlSelect += "AND b.dataUscita >=:dataDa AND and b.dataUscita <=:dataA ";
+            }
+            if (filtraArticolo==2){
+                sqlSelect += "AND a.codArticolo=:cordArticolo ";
+            }
+            sqlSelect += "group by a.codArticolo,a.descArticolo "
+                    "order by totale desc ";
+
+
+            if (filtraRighe==2){
+                sqlSelect += "limit 0,:righe";
+            }
+            else{
+                sqlSelect += "limit 0,10";
+            }
+            qDebug() << sqlSelect;
+            query.prepare(sqlSelect);
+
+            if (filtraData==2){
+                query.bindValue("dataDa",dataDa);
+                query.bindValue("dataDa",dataA);
+            }
+
+            if (filtraArticolo==2) { query.bindValue("codArticolo",limiteArticolo); }
+            if (filtraRighe == 2) { query.bindValue(":righe",limiteRighe); }
+            query.exec();
+        }
+        break;
+    }
+
+
+
+    return query;
 }

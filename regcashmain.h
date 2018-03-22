@@ -10,6 +10,7 @@
 #include "formsconti.h"
 #include "formscontofisso.h"
 #include "tipologiepagamento.h"
+#include "formreport.h"
 #include "dbutility.h"
 #include "customtable.h"
 
@@ -78,6 +79,9 @@ private:
     formpagamento *frmPagamento;
     formsconti *sconti;
     formscontofisso *scontoFisso;
+    formreport *formReport;
+
+
 
     void applicaSconto(int);
 
