@@ -21,17 +21,21 @@ class customTable:public QTableWidget
             //QTableWidget.SelectRows();
             //QTableWidget::removeRow(QTableWidget::SelectedClicked);
             //float prezzo = QTableWidget.model()->data(QTableWidget.model()->index(0,4)).toFloat();
-            QModelIndexList indexes = QTableWidget::selectionModel()->selection().indexes();
+            if (QTableWidget::rowCount()>0){
+                QModelIndexList indexes = QTableWidget::selectionModel()->selection().indexes();
 
 
-            QModelIndex index = indexes.at(0);
-            prezzo=this->item(index.row(),4)->text().toFloat();
-                //qint16 riga=;
+                QModelIndex index = indexes.at(0);
+                prezzo=this->item(index.row(),4)->text().toFloat();
+                    //qint16 riga=;
 
-            QTableWidget::removeRow(index.row());
+                QTableWidget::removeRow(index.row());
+                emit backSpacePressed();
+            }
+
             //connect(QTableWidget,SIGNAL(backSpacePressed(float)),this,SLOT(test()));
 
-            emit backSpacePressed();
+
 
          }
          else { QTableWidget::keyPressEvent(e); }
