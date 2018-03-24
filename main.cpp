@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
 
     QString m_sSettingsFile = "./config/application.ini";
-    QSettings settings(m_sSettingsFile, QSettings::NativeFormat);
+    QSettings settings(m_sSettingsFile, QSettings::IniFormat);
 
     dbType=settings.value("dbType", "").toInt();
 
