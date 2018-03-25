@@ -2,6 +2,14 @@
 #define FORMIMPOSTAZIONI_H
 
 #include <QDialog>
+#include <QSettings>
+
+
+const int PRESTASHOP     = 1;
+const int MAGENTO        = 2; //Not implemented in this Version
+const int OS_COMMERCE    = 3; //Not implemented in this Version
+const int SYNC_ACTIVE    = 2;
+const int SYNC_DISACTIVE = 0;
 
 namespace Ui {
 class formImpostazioni;
@@ -17,15 +25,14 @@ public:
 
 private slots:
     void on_btnAnnulla_clicked();
-
     void on_btnConferma_clicked();
-
     void on_radio_sqlite_clicked();
-
     void on_radio_mysql_clicked();
+
 
 private:
     Ui::formImpostazioni *ui;
+
 };
 
 #endif // FORMIMPOSTAZIONI_H

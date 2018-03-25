@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>789</width>
-    <height>370</height>
+    <height>559</height>
    </rect>
   </property>
   <property name="font">
@@ -24,7 +24,7 @@
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>300</y>
+     <y>490</y>
      <width>161</width>
      <height>61</height>
     </rect>
@@ -47,7 +47,7 @@
    <property name="geometry">
     <rect>
      <x>620</x>
-     <y>300</y>
+     <y>490</y>
      <width>161</width>
      <height>61</height>
     </rect>
@@ -130,6 +130,9 @@
        <width>211</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
      </property>
     </widget>
     <widget class="QLabel" name="label">
@@ -228,50 +231,139 @@
    <property name="title">
     <string>Shop On Line</string>
    </property>
-   <widget class="QRadioButton" name="radio_sqlite_2">
+   <widget class="QCheckBox" name="ckLiveSync">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>240</y>
+      <width>331</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Abilita sincronizzazione Live</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>191</width>
-      <height>23</height>
+      <width>374</width>
+      <height>116</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Prestashop</string>
-    </property>
-    <property name="checked">
-     <bool>true</bool>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QRadioButton" name="radio_shop_1">
+       <property name="text">
+        <string>Prestashop</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radio_shop_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Magento (prossimamente)</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radio_shop_3">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Os Commerce (prossimamente)</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+  </widget>
+  <widget class="QGroupBox" name="grpWebService">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>771</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Web Service</string>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>250</y>
-      <width>271</width>
-      <height>23</height>
+      <x>20</x>
+      <y>40</y>
+      <width>731</width>
+      <height>122</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Attiva Sincronizzazione</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radio_sqlite_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>191</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Magento</string>
-    </property>
-    <property name="checked">
-     <bool>false</bool>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="wsName">
+       <property name="placeholderText">
+        <string>Ex. regcashws.php</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="shopAddress">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Ex. http://localhost/</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Indirizzo Shop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Nome Web Service</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="apiKey">
+       <property name="placeholderText">
+        <string>Ex. 1234214ggsdf123123123</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Api Key</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>

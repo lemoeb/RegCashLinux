@@ -123,8 +123,10 @@ void RegCashMain::on_actionSyncShop_triggered()
 
 void RegCashMain::on_actionImpostazioni_triggered()
 {
+
     frmImpostazioni = new formImpostazioni;
     frmImpostazioni->exec();
+
 }
 
 

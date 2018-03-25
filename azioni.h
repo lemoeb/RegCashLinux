@@ -17,4 +17,13 @@ const int REPORT_ARTICOLI_VENDUTI=2;
 const int REPORT_ARTICOLI_PIU_VENDUTI=3;
 const int REPORT_ARTICOLI_PIU_PROFITTO=4;
 
+
+//WebService
+//----------
+const QString FULL_PRODUCTS="fullproduct";  //Get list of all product
+const QString RECV_STOCK_PRODUCTS="";       //Recv stock of all product from the Shop On LIne
+const QString SEND_STOCK_PRODUCT="";        //Send stock of all product to the Shop On line
+const QString DECREASE_PRODUCT="";          //Decrease 1 qty of product from the Shop On Line
+const QString INCREASE_PRODUCT="";          //Increase 1 qty of product in the Shop On Line
+
 #endif // AZIONI_H

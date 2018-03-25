@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     bool dbConnect;
-    dbUtility test;
+    dbUtility dbConn;
     QMessageBox messageBox;
     int dbType=0;
 
@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
       QString dbAddress=settings.value("dbAddess", "").toString();
       QString dbUser=settings.value("dbUser", "").toString();
       QString dbPassword=settings.value("dbPassword", "").toString();
-      dbConnect=test.dbConnectMySql(dbName,dbAddress,dbUser,dbPassword);
+      dbConnect=dbConn.dbConnectMySql(dbName,dbAddress,dbUser,dbPassword);
     }
     else if (dbType==2){
-       dbConnect=test.dbConnectSqlite();
+       dbConnect=dbConn.dbConnectSqlite();
     }
     else
     {
