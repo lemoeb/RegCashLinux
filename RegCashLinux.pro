@@ -35,7 +35,8 @@ SOURCES += \
     dbutility.cpp \
     formsconti.cpp \
     formscontofisso.cpp \
-    formreport.cpp
+    formreport.cpp \
+    formsyncshop.cpp
 
 HEADERS += \
     customtable.h \
@@ -52,7 +53,8 @@ HEADERS += \
     errori.h \
     formreport.h \
     version.h \
-    messaggi.h
+    messaggi.h \
+    formsyncshop.h
 
 FORMS += \
         regcashmain.ui \
@@ -61,7 +63,8 @@ FORMS += \
     formimpostazioni.ui \
     formsconti.ui \
     formscontofisso.ui \
-    formreport.ui
+    formreport.ui \
+    formsyncshop.ui
 
 RESOURCES += \
     regcashresource.qrc

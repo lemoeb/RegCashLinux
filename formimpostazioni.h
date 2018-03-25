@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QSettings>
+#include <QMessageBox>
+#include "messaggi.h"
 
 
 const int PRESTASHOP     = 1;
@@ -10,6 +12,8 @@ const int MAGENTO        = 2; //Not implemented in this Version
 const int OS_COMMERCE    = 3; //Not implemented in this Version
 const int SYNC_ACTIVE    = 2;
 const int SYNC_DISACTIVE = 0;
+const int DB_MYSQL       = 1;
+const int DB_SQLITE      = 2;
 
 namespace Ui {
 class formImpostazioni;

@@ -113,25 +113,32 @@ void formImpostazioni::on_btnConferma_clicked()
     QString m_sSettingsFile = "./config/application.ini";
     QSettings settings(m_sSettingsFile, QSettings::IniFormat);
 
-    settings.beginGroup("General");
     settings.setValue("dbAddress", ui->dbHost->text());
-    //settings.setValue("dbName", "").toString();
-    //settings.setValue("dbPassword", "").toString();
-    //settings.setValue("dbUser", "").toString();
-    settings.endGroup();
+    settings.setValue("dbName", ui->dbName->text());
+    settings.setValue("dbPassword",ui->dbPassword->text());
+    settings.setValue("dbUser",ui->dbuser->text());
+
+    if (ui->radio_mysql->isChecked()){
+      settings.setValue("dbType",DB_MYSQL);
+    }else{
+      settings.setValue("dbType",DB_SQLITE);
+    }
 
     settings.beginGroup("SyncShop");
-
     if (ui->ckLiveSync->checkState()==SYNC_ACTIVE){
         settings.setValue("syncActive",SYNC_ACTIVE);
     }else{
         settings.setValue("syncActive",SYNC_DISACTIVE);
     }
-
-
-    //(ui->ckLiveSync->checkState()==SYNC_ACTIVE) ? settings.setValue("syncActive",SYNC_ACTIVE) : settings.setValue("syncActive",SYNC_DISACTIVE);
     settings.endGroup();
 
+    settings.beginGroup("wsShop");
+        settings.setValue("urlShop",ui->shopAddress->text());
+        settings.setValue("wsShop",ui->wsName->text());
+        settings.setValue("apiKey",ui->apiKey->text());
+    settings.endGroup();
+
+    QMessageBox::information(this,INFO_TITLE,SETTING_SAVED,QMessageBox::Ok);
 }
 
 void formImpostazioni::on_radio_sqlite_clicked()
